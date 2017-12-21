@@ -24,7 +24,11 @@ LOOKER_CLIENT_SECRET = '???'
 ## usage
 
 ```
-df = get_look(look_id = 123)
+df = get_look(look_id = 123)  # default row limit of 500
+
+df = get_look(look_id = 123, limit = 10000)  # custom row limit
+
+df = get_look(look_id = 123, limit = -1)  # without row limit
 ```
 
-Note: the row limit is taken from the saved Look, to save without limit simply delete the numbers in the row limit box
+And that's it, there are no other functions!
