@@ -11,15 +11,18 @@ set_access_token = function() {
     if (status_code != 200) {
         sprintf("something went wrong :( status code: %s", status_code)
     } else {
+        Sys.setenv('LOOKER_ACCESS_TOKEN_EXPIRY' = Sys.time() + httr::content(response)$expires_in)
         Sys.setenv('LOOKER_ACCESS_TOKEN' = httr::content(response)$access_token)
     }
 }
 
 get_look = function(look_id) {
     require(tidyverse)
-    if (Sys.getenv('LOOKER_ACCESS_TOKEN') == "") set_access_token()
+    if (
+        Sys.getenv('LOOKER_ACCESS_TOKEN') == "" | Sys.time() >= Sys.getenv('LOOKER_ACCESS_TOKEN_EXPIRY')
+    ) set_access_token()
     query = sprintf(
-        '%s/looks/%s/run/csv?access_token=%s',
+        '%s/looks/%s/run/csv?limit=-1&access_token=%s',
         Sys.getenv('LOOKER_API_PATH'),
         look_id,
         Sys.getenv('LOOKER_ACCESS_TOKEN')
