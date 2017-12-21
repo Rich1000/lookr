@@ -2,6 +2,8 @@
 
 A quick way to get data out of Looker without row limits.
 
+Returns a data frame (well actually it's a [tibble](https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html)) with all data from specified Look.
+
 ## set up
 
 You will first need to create a file ~/.Renviron with the following variables:
