@@ -4,9 +4,11 @@ A quick way to get data out of Looker without row limits.
 
 ## installation
 
-install.packages("devtools")
-library("devtools")
-install_github("rich1000/lookr")
+```
+install.packages('devtools')
+library('devtools')
+install_github('rich1000/lookr')
+```
 
 ## set up
 
