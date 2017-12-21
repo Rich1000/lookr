@@ -19,7 +19,7 @@ set_access_token = function() {
 get_look = function(look_id) {
     require(tidyverse)
     if (
-        Sys.getenv('LOOKER_ACCESS_TOKEN') == "" | Sys.time() >= Sys.getenv('LOOKER_ACCESS_TOKEN_EXPIRY')
+        Sys.getenv('LOOKER_ACCESS_TOKEN') == "" | as.numeric(Sys.time()) >= Sys.getenv('LOOKER_ACCESS_TOKEN_EXPIRY')
     ) set_access_token()
     query = sprintf(
         '%s/looks/%s/run/csv?limit=-1&access_token=%s',
