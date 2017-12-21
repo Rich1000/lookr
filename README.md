@@ -24,6 +24,8 @@ LOOKER_CLIENT_SECRET = '???'
 ## usage
 
 ```
+library(lookr)
+
 df = get_look(look_id = 123)  # default row limit of 500
 
 df = get_look(look_id = 123, limit = 10000)  # custom row limit
