@@ -9,7 +9,7 @@ set_access_token = function() {
     response = httr::POST(query)
     status_code = httr::status_code(response)
     if (status_code != 200) {
-        stop(sprintf("something went wrong :( status code: %s", status_code))
+        stop(sprintf('status code %s', status_code))
     } else {
         Sys.setenv('LOOKER_ACCESS_TOKEN_EXPIRY' = as.numeric(Sys.time()) + httr::content(response)$expires_in)
         Sys.setenv('LOOKER_ACCESS_TOKEN' = httr::content(response)$access_token)
@@ -19,7 +19,7 @@ set_access_token = function() {
 get_look = function(look_id, limit=500) {
     require(tidyverse)
     if (
-        Sys.getenv('LOOKER_ACCESS_TOKEN') == "" | as.numeric(Sys.time()) >= Sys.getenv('LOOKER_ACCESS_TOKEN_EXPIRY')
+        Sys.getenv('LOOKER_ACCESS_TOKEN') == '' | as.numeric(Sys.time()) >= Sys.getenv('LOOKER_ACCESS_TOKEN_EXPIRY')
     ) set_access_token()
     query = sprintf(
         '%s/looks/%s/run/csv?limit=%s&access_token=%s',
@@ -31,7 +31,7 @@ get_look = function(look_id, limit=500) {
     response = httr::GET(query)
     status_code = httr::status_code(response)
     if (status_code != 200) {
-        stop(sprintf("something went wrong :( status code: %s", status_code))
+        stop(sprintf('status code %s', status_code))
     } else {
         df = readr::read_csv(httr::content(response))
 
