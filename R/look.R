@@ -1,10 +1,18 @@
 
 set_access_token = function() {
+    looker_api_path = Sys.getenv('LOOKER_API_PATH')
+    looker_client_id = Sys.getenv('LOOKER_CLIENT_ID')
+    looker_client_secret = Sys.getenv('LOOKER_CLIENT_SECRET')
+
+    if (looker_api_path == '') stop(sprintf('variable %s missing from file ~/.Renviron', 'LOOKER_API_PATH'))
+    if (looker_client_id == '') stop(sprintf('variable %s missing from file ~/.Renviron', 'LOOKER_CLIENT_ID'))
+    if (looker_client_secret == '') stop(sprintf('variable %s missing from file ~/.Renviron', 'LOOKER_CLIENT_SECRET'))
+
     query = sprintf(
         '%s/login?client_id=%s&client_secret=%s',
-        Sys.getenv('LOOKER_API_PATH'),
-        Sys.getenv('LOOKER_CLIENT_ID'),
-        Sys.getenv('LOOKER_CLIENT_SECRET')
+        looker_api_path,
+        looker_client_id,
+        looker_client_secret
     )
     response = httr::POST(query)
     status_code = httr::status_code(response)
